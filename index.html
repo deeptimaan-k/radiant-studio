@@ -29,6 +29,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 
 /* CANVAS */
 #pc{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.55;}
+@media(max-width:768px){#pc{display:none;}}
 
 
 /* CONTENT */
@@ -219,6 +220,11 @@ footer{background:linear-gradient(135deg,rgba(139,92,246,.1),rgba(99,102,241,.05
 }
 
 /* ── MOBILE ── */
+@media(max-width:768px){
+  .blob{display:none;}
+  .rv{opacity:1;transform:none;transition:none;}
+  .pkg{transform:none!important;transition:none!important;}
+}
 @media(max-width:600px){
   .hero{padding:60px 20px 50px;}
   .hero h1{letter-spacing:-1px;font-size:clamp(32px,9vw,52px);}
@@ -558,8 +564,9 @@ footer{background:linear-gradient(135deg,rgba(139,92,246,.1),rgba(99,102,241,.05
 </div>
 
 <script>
-/* PARTICLES */
+/* PARTICLES — desktop only */
 (function(){
+  if(window.innerWidth<=768)return;
   const c=document.getElementById('pc'),x=c.getContext('2d');
   let W,H,pts=[],mx=-999,my=-999;
   function resize(){W=c.width=innerWidth;H=c.height=innerHeight;}
@@ -594,8 +601,8 @@ footer{background:linear-gradient(135deg,rgba(139,92,246,.1),rgba(99,102,241,.05
 })();
 
 
-/* 3D TILT */
-document.querySelectorAll('.pkg').forEach(card=>{
+/* 3D TILT — desktop only */
+if(window.innerWidth>768) document.querySelectorAll('.pkg').forEach(card=>{
   card.addEventListener('mousemove',e=>{
     const r=card.getBoundingClientRect(),x=e.clientX-r.left-r.width/2,y=e.clientY-r.top-r.height/2;
     card.style.transform=`perspective(900px) rotateX(${-y/22}deg) rotateY(${x/22}deg) translateZ(12px)`;
@@ -603,9 +610,11 @@ document.querySelectorAll('.pkg').forEach(card=>{
   card.addEventListener('mouseleave',()=>{card.style.transform='perspective(900px) rotateX(0) rotateY(0) translateZ(0)';});
 });
 
-/* SCROLL REVEAL */
-const ro=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on');}),{threshold:.1});
-document.querySelectorAll('.rv').forEach(el=>ro.observe(el));
+/* SCROLL REVEAL — desktop only */
+if(window.innerWidth>768){
+  const ro=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on');}),{threshold:.1});
+  document.querySelectorAll('.rv').forEach(el=>ro.observe(el));
+}
 
 </script>
 </body>
