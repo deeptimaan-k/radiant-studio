@@ -22,7 +22,7 @@
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.6;cursor:none;overflow-x:hidden;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.6;overflow-x:hidden;}
 ::-webkit-scrollbar{width:5px;}
 ::-webkit-scrollbar-track{background:var(--bg);}
 ::-webkit-scrollbar-thumb{background:var(--primary);border-radius:3px;}
@@ -30,9 +30,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 /* CANVAS */
 #pc{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.55;}
 
-/* CURSOR */
-#cur{position:fixed;width:22px;height:22px;border:1.5px solid var(--primary);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s,border-color .2s;mix-blend-mode:screen;}
-#cdot{position:fixed;width:4px;height:4px;background:var(--primary-light);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);}
 
 /* CONTENT */
 .cnt{position:relative;z-index:1;}
@@ -221,8 +218,6 @@ footer{background:linear-gradient(135deg,rgba(139,92,246,.1),rgba(99,102,241,.05
 <body>
 
 <canvas id="pc"></canvas>
-<div id="cur"></div>
-<div id="cdot"></div>
 
 <div class="cnt">
 
@@ -243,11 +238,6 @@ footer{background:linear-gradient(135deg,rgba(139,92,246,.1),rgba(99,102,241,.05
   <h1>Premium Websites.<br><span class="g">Transparent Pricing.</span></h1>
   <p class="hero-sub">Domain · Hosting · Development — all costs clearly broken down. No hidden charges, ever.</p>
 
-  <div class="stats">
-    <div><span class="stat-num counter" data-t="50">0</span><span style="font-size:28px;font-weight:900;background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">+</span><div class="stat-lbl">Projects</div></div>
-    <div><span class="stat-num counter" data-t="30">0</span><span style="font-size:28px;font-weight:900;background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">+</span><div class="stat-lbl">Clients</div></div>
-    <div><span class="stat-num counter" data-t="3">0</span><span style="font-size:28px;font-weight:900;background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">+</span><div class="stat-lbl">Years Exp</div></div>
-  </div>
 
   <div class="scroll-hint"><span>Scroll</span><div class="arr"></div></div>
 </section>
@@ -537,17 +527,6 @@ footer{background:linear-gradient(135deg,rgba(139,92,246,.1),rgba(99,102,241,.05
   init();frame();
 })();
 
-/* CURSOR */
-(function(){
-  const cur=document.getElementById('cur'),dot=document.getElementById('cdot');
-  let cx=0,cy=0,tx=0,ty=0;
-  document.addEventListener('mousemove',e=>{tx=e.clientX;ty=e.clientY;dot.style.left=tx+'px';dot.style.top=ty+'px';});
-  (function loop(){cx+=(tx-cx)*.13;cy+=(ty-cy)*.13;cur.style.left=cx+'px';cur.style.top=cy+'px';requestAnimationFrame(loop);})();
-  document.querySelectorAll('.pkg,.plat,.tip,.inv-card').forEach(el=>{
-    el.addEventListener('mouseenter',()=>{cur.style.width='38px';cur.style.height='38px';cur.style.borderColor='#a78bfa';});
-    el.addEventListener('mouseleave',()=>{cur.style.width='22px';cur.style.height='22px';cur.style.borderColor='#8b5cf6';});
-  });
-})();
 
 /* 3D TILT */
 document.querySelectorAll('.pkg').forEach(card=>{
@@ -562,15 +541,6 @@ document.querySelectorAll('.pkg').forEach(card=>{
 const ro=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on');}),{threshold:.1});
 document.querySelectorAll('.rv').forEach(el=>ro.observe(el));
 
-/* COUNTERS */
-const co=new IntersectionObserver(es=>es.forEach(e=>{
-  if(e.isIntersecting&&!e.target.dataset.done){
-    e.target.dataset.done=1;
-    const t=+e.target.dataset.t,step=t/90;
-    let v=0;const id=setInterval(()=>{v+=step;if(v>=t){v=t;clearInterval(id);}e.target.textContent=Math.floor(v);},16);
-  }
-}),{threshold:.5});
-document.querySelectorAll('.counter').forEach(el=>co.observe(el));
 </script>
 </body>
 </html>
