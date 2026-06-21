@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Radiant — Website Development Quotation</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #f4f6fb;
+  color: #1a1a2e;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.page { max-width: 860px; margin: 0 auto; background: white; }
+
+/* HEADER */
+.header {
+  background: linear-gradient(135deg, #0f3460 0%, #16213e 60%, #1a1a2e 100%);
+  padding: 48px 50px 40px;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+.header::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 220px; height: 220px;
+  border-radius: 50%;
+  background: rgba(167,139,250,0.08);
+}
+.header::after {
+  content: '';
+  position: absolute;
+  bottom: -50px; right: 120px;
+  width: 160px; height: 160px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.04);
+}
+.header-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 30px; }
+.logo-wrap { display: flex; align-items: center; gap: 14px; }
+.logo-icon {
+  width: 46px; height: 46px;
+  background: linear-gradient(135deg, #a78bfa, #6366f1);
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+.logo-name { font-size: 24px; font-weight: 800; letter-spacing: -0.5px; }
+.logo-tag { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 2px; letter-spacing: 0.3px; }
+.doc-info { text-align: right; }
+.doc-label { font-size: 10px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 1px; }
+.doc-val { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.9); margin-top: 2px; }
+.header-title { font-size: 32px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 8px; }
+.header-title span { color: #a78bfa; }
+.header-sub { font-size: 13px; color: rgba(255,255,255,0.6); max-width: 520px; }
+
+/* INTRO NOTE */
+.intro {
+  background: #f0f4ff;
+  border-left: 4px solid #6366f1;
+  padding: 16px 22px;
+  margin: 0;
+  font-size: 12.5px;
+  color: #374151;
+}
+.intro strong { color: #1a1a2e; }
+
+/* SECTION */
+.sec { padding: 32px 50px; border-bottom: 1px solid #f0f0f5; }
+.sec:last-child { border-bottom: none; }
+.sec-title {
+  font-size: 15px; font-weight: 700; color: #1a1a2e;
+  margin-bottom: 6px;
+  display: flex; align-items: center; gap: 8px;
+}
+.sec-sub { font-size: 11.5px; color: #6b7280; margin-bottom: 20px; }
+
+/* PACKAGE CARDS */
+.pkg-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.pkg {
+  border: 2px solid #e5e7eb;
+  border-radius: 14px;
+  overflow: hidden;
+  position: relative;
+}
+.pkg.popular { border-color: #8b5cf6; }
+.popular-badge {
+  position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  background: #8b5cf6; color: white;
+  font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
+  padding: 3px 12px; border-radius: 0 0 8px 8px;
+}
+.pkg-head {
+  padding: 20px 18px 16px;
+  background: #fafafa;
+  border-bottom: 1px solid #f0f0f5;
+  text-align: center;
+}
+.pkg.popular .pkg-head { background: #f5f3ff; }
+.pkg-icon { font-size: 26px; margin-bottom: 6px; }
+.pkg-name { font-size: 14px; font-weight: 700; color: #1a1a2e; margin-bottom: 4px; }
+.pkg-desc { font-size: 10.5px; color: #6b7280; }
+.pkg-body { padding: 16px 18px; }
+.row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px dashed #f0f0f5; font-size: 12px; }
+.row:last-child { border-bottom: none; }
+.row-label { color: #4b5563; }
+.row-val { font-weight: 600; color: #1a1a2e; }
+.row-val.free { color: #16a34a; }
+.pkg-total {
+  background: #1a1a2e; color: white;
+  padding: 12px 18px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.pkg.popular .pkg-total { background: #7c3aed; }
+.total-label { font-size: 11px; color: rgba(255,255,255,0.7); }
+.total-amt { font-size: 17px; font-weight: 800; }
+.total-note { font-size: 9.5px; color: rgba(255,255,255,0.55); margin-top: 1px; text-align: right; }
+
+/* DETAIL TABLE */
+.tbl-wrap { border-radius: 10px; border: 1px solid #e5e7eb; overflow: hidden; }
+table { width: 100%; border-collapse: collapse; font-size: 12px; }
+thead tr { background: linear-gradient(135deg, #1a1a2e, #0f3460); color: white; }
+thead th { padding: 11px 14px; text-align: left; font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.4px; }
+tbody tr { border-bottom: 1px solid #f3f4f6; }
+tbody tr:last-child { border-bottom: none; }
+tbody tr:nth-child(even) { background: #fafafa; }
+tbody td { padding: 10px 14px; vertical-align: middle; }
+.td-bold { font-weight: 700; color: #1a1a2e; }
+.td-price { font-weight: 700; color: #0f3460; }
+.td-green { font-weight: 700; color: #16a34a; }
+.td-purple { font-weight: 700; color: #7c3aed; }
+.tag { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 9.5px; font-weight: 700; text-transform: uppercase; }
+.tag-free { background: #dcfce7; color: #15803d; }
+.tag-paid { background: #dbeafe; color: #1d4ed8; }
+.tag-inc { background: #f3e8ff; color: #7c3aed; }
+
+/* QUOTE BUILDER */
+.builder { background: linear-gradient(135deg, #f0f4ff, #f5f3ff); border-radius: 14px; border: 1px solid #ddd6fe; padding: 22px; }
+.builder-title { font-size: 14px; font-weight: 700; margin-bottom: 16px; color: #1a1a2e; }
+.brow { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #e0e7ff; }
+.brow:last-child { border-bottom: none; }
+.brow-name { font-size: 13px; font-weight: 600; color: #1a1a2e; }
+.brow-note { font-size: 11px; color: #6b7280; }
+.brow-right { font-size: 14px; font-weight: 700; color: #0f3460; text-align: right; }
+.brow-right small { display: block; font-size: 10px; color: #9ca3af; font-weight: 400; }
+.grand-total {
+  background: linear-gradient(135deg, #1a1a2e, #0f3460);
+  color: white; border-radius: 12px; padding: 18px 22px;
+  display: flex; justify-content: space-between; align-items: center; margin-top: 16px;
+}
+.gt-label { font-size: 14px; font-weight: 600; }
+.gt-note { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 3px; }
+.gt-amt { font-size: 26px; font-weight: 800; color: #a78bfa; }
+.gt-yr { font-size: 12px; color: rgba(255,255,255,0.5); }
+
+/* TIPS BOX */
+.tip-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.tip-card { border-radius: 10px; padding: 16px; }
+.tip-card.green { background: #f0fdf4; border: 1px solid #bbf7d0; }
+.tip-card.orange { background: #fff7ed; border: 1px solid #fed7aa; }
+.tip-card.blue { background: #eff6ff; border: 1px solid #bfdbfe; }
+.tip-card.purple { background: #f5f3ff; border: 1px solid #ddd6fe; }
+.tip-head { font-size: 12.5px; font-weight: 700; margin-bottom: 8px; }
+.tip-card.green .tip-head { color: #14532d; }
+.tip-card.orange .tip-head { color: #9a3412; }
+.tip-card.blue .tip-head { color: #1e3a8a; }
+.tip-card.purple .tip-head { color: #5b21b6; }
+.tip-list { list-style: none; }
+.tip-list li { font-size: 11.5px; padding: 3px 0; }
+.tip-card.green .tip-list li { color: #166534; }
+.tip-card.orange .tip-list li { color: #7c2d12; }
+.tip-card.blue .tip-list li { color: #1e40af; }
+.tip-card.purple .tip-list li { color: #6d28d9; }
+.tip-list li::before { content: '→ '; font-weight: 700; }
+
+/* SAMPLE INVOICE */
+.invoice { border: 2px solid #e5e7eb; border-radius: 14px; overflow: hidden; }
+.inv-head { background: #f8faff; padding: 18px 22px; border-bottom: 1px solid #e5e7eb; display: flex; justify-content: space-between; align-items: flex-start; }
+.inv-title { font-size: 16px; font-weight: 700; color: #1a1a2e; }
+.inv-num { font-size: 11px; color: #6b7280; margin-top: 3px; }
+.inv-from { font-size: 11.5px; font-weight: 700; color: #7c3aed; }
+.inv-from-sub { font-size: 10.5px; color: #9ca3af; margin-top: 1px; }
+.inv-body { padding: 0; }
+.inv-row { display: flex; padding: 11px 22px; border-bottom: 1px solid #f3f4f6; }
+.inv-row:last-child { border-bottom: none; }
+.inv-row.header-row { background: #f1f5f9; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: #6b7280; }
+.col-item { flex: 3; }
+.col-desc { flex: 3; color: #6b7280; font-size: 11px; }
+.col-qty { flex: 1; text-align: center; }
+.col-rate { flex: 2; text-align: right; }
+.col-total { flex: 2; text-align: right; font-weight: 700; }
+.inv-footer { background: #1a1a2e; padding: 14px 22px; display: flex; justify-content: space-between; align-items: center; color: white; }
+.inv-total-label { font-size: 13px; font-weight: 600; }
+.inv-total-amt { font-size: 20px; font-weight: 800; color: #a78bfa; }
+.inv-note { font-size: 10px; color: rgba(255,255,255,0.5); }
+
+/* INCLUDED CARDS */
+.incl-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; }
+.incl-card { text-align: center; padding: 14px 10px; border: 1px solid #e5e7eb; border-radius: 10px; }
+.incl-icon { font-size: 22px; margin-bottom: 6px; }
+.incl-name { font-size: 11px; font-weight: 700; color: #1a1a2e; margin-bottom: 2px; }
+.incl-price { font-size: 12px; font-weight: 800; color: #7c3aed; }
+.incl-note { font-size: 9.5px; color: #9ca3af; margin-top: 2px; }
+
+/* FOOTER */
+.footer {
+  background: linear-gradient(135deg, #1a1a2e, #0f3460);
+  color: rgba(255,255,255,0.6);
+  padding: 22px 50px;
+  font-size: 11px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer strong { color: white; }
+.footer-brand { display: flex; align-items: center; gap: 10px; }
+.footer-logo {
+  width: 30px; height: 30px;
+  background: linear-gradient(135deg, #a78bfa, #6366f1);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+}
+
+/* ALERT */
+.alert { border-radius: 10px; padding: 13px 16px; font-size: 12px; display: flex; gap: 10px; margin-bottom: 18px; }
+.alert-blue { background: #eff6ff; border-left: 4px solid #3b82f6; color: #1e40af; }
+.alert-green { background: #f0fdf4; border-left: 4px solid #22c55e; color: #14532d; }
+.alert-yellow { background: #fffbeb; border-left: 4px solid #f59e0b; color: #92400e; }
+.alert span { font-size: 16px; flex-shrink: 0; }
+
+/* TERMS STRIP */
+.terms {
+  background: #f8faff;
+  border-top: 1px solid #e5e7eb;
+  padding: 14px 50px;
+  display: flex;
+  gap: 30px;
+  font-size: 11px;
+  color: #6b7280;
+}
+.term-item { display: flex; align-items: center; gap: 6px; }
+.term-item strong { color: #1a1a2e; }
+
+@media print {
+  body { background: white; }
+  .page { box-shadow: none; }
+  .header, .pkg-total, .grand-total, .footer, .inv-footer { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  thead tr { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .terms { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- ══ HEADER ══ -->
+<div class="header">
+  <div class="header-top">
+    <div class="logo-wrap">
+      <div class="logo-icon">✦</div>
+      <div>
+        <div class="logo-name">Radiant</div>
+        <div class="logo-tag">Web Development Studio · India</div>
+      </div>
+    </div>
+    <div class="doc-info">
+      <div class="doc-label">Document Type</div>
+      <div class="doc-val">Website Quotation</div>
+      <div class="doc-label" style="margin-top:8px;">Valid Until</div>
+      <div class="doc-val">30 Days from Issue</div>
+    </div>
+  </div>
+  <div class="header-title">Website Development<br><span>Pricing & Quotation</span></div>
+  <div class="header-sub">Transparent pricing for Domain · Hosting · Development — all costs clearly broken down, no hidden charges</div>
+</div>
+
+<!-- ══ TERMS STRIP ══ -->
+<div class="terms">
+  <div class="term-item">📋 <span><strong>Payment:</strong> 50% advance · 50% on delivery</span></div>
+  <div class="term-item">🔄 <span><strong>Revisions:</strong> 2 rounds included</span></div>
+  <div class="term-item">🔒 <span><strong>SSL:</strong> Always free</span></div>
+  <div class="term-item">📞 <span><strong>Support:</strong> 1 month post-launch</span></div>
+</div>
+
+<!-- ══ INTRO ══ -->
+<div class="intro">
+  <strong>What's included in every Radiant package:</strong> Domain Registration + Hosting Setup + Full Website Development + Free SSL Certificate + 1 Month Post-Launch Support. All costs are listed transparently below — no surprises.
+</div>
+
+<!-- ══ PACKAGES ══ -->
+<div class="sec">
+  <div class="sec-title">📦 Website Packages</div>
+  <div class="sec-sub">Choose the package that fits your requirements — everything is bundled in one price</div>
+
+  <div class="pkg-grid">
+
+    <!-- BASIC -->
+    <div class="pkg">
+      <div class="pkg-head">
+        <div class="pkg-icon">🌱</div>
+        <div class="pkg-name">Basic</div>
+        <div class="pkg-desc">Portfolio · Visiting Card · Simple Landing Page</div>
+      </div>
+      <div class="pkg-body">
+        <div class="row"><span class="row-label">Development</span><span class="row-val">₹3,000–₹6,000</span></div>
+        <div class="row"><span class="row-label">Domain (.com)</span><span class="row-val">₹900</span></div>
+        <div class="row"><span class="row-label">Hosting (1 yr)</span><span class="row-val free">₹0 (Free)</span></div>
+        <div class="row"><span class="row-label">SSL Certificate</span><span class="row-val free">Free</span></div>
+        <div class="row"><span class="row-label">Pages</span><span class="row-val">1–3 pages</span></div>
+        <div class="row"><span class="row-label">Delivery Time</span><span class="row-val">3–5 days</span></div>
+        <div class="row"><span class="row-label">Support</span><span class="row-val">1 month</span></div>
+      </div>
+      <div class="pkg-total">
+        <div>
+          <div class="total-label">Total Package</div>
+          <div class="total-note">One-time · ₹900/yr renewal</div>
+        </div>
+        <div>
+          <div class="total-amt">₹3,900</div>
+          <div style="font-size:9.5px;color:rgba(255,255,255,0.5);">onwards</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STANDARD -->
+    <div class="pkg popular">
+      <div class="popular-badge">⭐ Most Popular</div>
+      <div class="pkg-head" style="padding-top:26px;">
+        <div class="pkg-icon">🚀</div>
+        <div class="pkg-name">Standard</div>
+        <div class="pkg-desc">Business Website · Blog · Small Online Store</div>
+      </div>
+      <div class="pkg-body">
+        <div class="row"><span class="row-label">Development</span><span class="row-val">₹8,000–₹18,000</span></div>
+        <div class="row"><span class="row-label">Domain (.com)</span><span class="row-val">₹900</span></div>
+        <div class="row"><span class="row-label">Hosting (1 yr)</span><span class="row-val">₹1,188</span></div>
+        <div class="row"><span class="row-label">SSL Certificate</span><span class="row-val free">Free</span></div>
+        <div class="row"><span class="row-label">Pages</span><span class="row-val">5–10 pages</span></div>
+        <div class="row"><span class="row-label">Delivery Time</span><span class="row-val">7–14 days</span></div>
+        <div class="row"><span class="row-label">Support</span><span class="row-val">1 month</span></div>
+      </div>
+      <div class="pkg-total">
+        <div>
+          <div class="total-label">Total Package</div>
+          <div class="total-note">One-time · ₹2,088/yr renewal</div>
+        </div>
+        <div>
+          <div class="total-amt">₹10,088</div>
+          <div style="font-size:9.5px;color:rgba(255,255,255,0.5);">onwards</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PREMIUM -->
+    <div class="pkg">
+      <div class="pkg-head">
+        <div class="pkg-icon">🏆</div>
+        <div class="pkg-name">Premium</div>
+        <div class="pkg-desc">Web App · E-Commerce · Custom Backend</div>
+      </div>
+      <div class="pkg-body">
+        <div class="row"><span class="row-label">Development</span><span class="row-val">₹20,000–₹60,000</span></div>
+        <div class="row"><span class="row-label">Domain (.com)</span><span class="row-val">₹900</span></div>
+        <div class="row"><span class="row-label">Server (VPS)</span><span class="row-val">₹840/month</span></div>
+        <div class="row"><span class="row-label">SSL Certificate</span><span class="row-val free">Free</span></div>
+        <div class="row"><span class="row-label">Database</span><span class="row-val">Included</span></div>
+        <div class="row"><span class="row-label">Delivery Time</span><span class="row-val">20–45 days</span></div>
+        <div class="row"><span class="row-label">Support</span><span class="row-val">1 month</span></div>
+      </div>
+      <div class="pkg-total">
+        <div>
+          <div class="total-label">Total Package</div>
+          <div class="total-note">One-time + ₹840/mo server</div>
+        </div>
+        <div>
+          <div class="total-amt">₹20,900</div>
+          <div style="font-size:9.5px;color:rgba(255,255,255,0.5);">onwards</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ COST BREAKDOWN ══ -->
+<div class="sec">
+  <div class="sec-title">📋 Cost Breakdown by Project Type</div>
+  <div class="sec-sub">Exact estimate based on your project — developer fee + domain + hosting, all in one view</div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Project Type</th>
+          <th>Developer Fee</th>
+          <th>Domain /yr</th>
+          <th>Hosting</th>
+          <th>Total (Year 1)</th>
+          <th>Annual Renewal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="td-bold">📄 Portfolio / Resume Site</td>
+          <td class="td-price">₹2,000–₹5,000</td>
+          <td>₹900</td>
+          <td><span class="tag tag-free">₹0 Free</span></td>
+          <td class="td-purple">₹2,900–₹5,900</td>
+          <td>₹900/yr</td>
+        </tr>
+        <tr>
+          <td class="td-bold">🏢 Business Landing Page</td>
+          <td class="td-price">₹4,000–₹10,000</td>
+          <td>₹900</td>
+          <td><span class="tag tag-free">₹0 Free</span></td>
+          <td class="td-purple">₹4,900–₹10,900</td>
+          <td>₹900/yr</td>
+        </tr>
+        <tr>
+          <td class="td-bold">🌐 WordPress Website (5–7 pages)</td>
+          <td class="td-price">₹7,000–₹15,000</td>
+          <td>₹900</td>
+          <td><span class="tag tag-paid">₹1,188/yr</span></td>
+          <td class="td-purple">₹9,088–₹17,088</td>
+          <td>₹2,088/yr</td>
+        </tr>
+        <tr>
+          <td class="td-bold">📝 Blog / News Website</td>
+          <td class="td-price">₹8,000–₹18,000</td>
+          <td>₹900</td>
+          <td><span class="tag tag-paid">₹1,188/yr</span></td>
+          <td class="td-purple">₹10,088–₹20,088</td>
+          <td>₹2,088/yr</td>
+        </tr>
+        <tr>
+          <td class="td-bold">🛒 E-Commerce (WooCommerce)</td>
+          <td class="td-price">₹15,000–₹40,000</td>
+          <td>₹900</td>
+          <td><span class="tag tag-paid">₹4,788/yr</span></td>
+          <td class="td-purple">₹20,688–₹45,688</td>
+          <td>₹5,688/yr</td>
+        </tr>
+        <tr>
+          <td class="td-bold">⚛️ React / Web App (Frontend only)</td>
+          <td class="td-price">₹10,000–₹25,000</td>
+          <td>₹900</td>
+          <td><span class="tag tag-free">₹0 Free</span></td>
+          <td class="td-purple">₹10,900–₹25,900</td>
+          <td>₹900/yr</td>
+        </tr>
+        <tr>
+          <td class="td-bold">🔧 Full Stack Web App (with Database)</td>
+          <td class="td-price">₹20,000–₹60,000</td>
+          <td>₹900</td>
+          <td><span class="tag tag-paid">₹840/mo</span></td>
+          <td class="td-purple">₹30,980–₹70,980</td>
+          <td>₹10,980/yr</td>
+        </tr>
+        <tr>
+          <td class="td-bold">🏪 Custom E-Commerce (React + Node)</td>
+          <td class="td-price">₹40,000–₹1,00,000</td>
+          <td>₹900</td>
+          <td><span class="tag tag-paid">₹1,680/mo</span></td>
+          <td class="td-purple">₹61,060–₹1,21,060</td>
+          <td>₹21,060/yr</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="alert alert-yellow" style="margin-top:16px;">
+    <span>⚠️</span>
+    <div><strong>Important Note:</strong> The developer fee is a one-time charge. Domain and Hosting are renewed annually. These recurring costs are clearly shown above so you can plan your budget with no surprises.</div>
+  </div>
+</div>
+
+<!-- ══ SAMPLE INVOICE ══ -->
+<div class="sec">
+  <div class="sec-title">🧾 Sample Invoice — Business Website (WordPress)</div>
+  <div class="sec-sub">A sample breakdown of what the client receives after confirmation</div>
+
+  <div class="invoice">
+    <div class="inv-head">
+      <div>
+        <div class="inv-title">Tax Invoice / Quotation</div>
+        <div class="inv-num">INV-2024-001 &nbsp;·&nbsp; Date: ___________</div>
+        <div style="margin-top:10px;">
+          <div class="inv-from">✦ Radiant</div>
+          <div class="inv-from-sub">Web Development Studio · India</div>
+        </div>
+      </div>
+      <div style="text-align:right;">
+        <div style="font-size:12px; font-weight:700; color:#1a1a2e;">Bill To:</div>
+        <div style="font-size:11px; color:#6b7280; margin-top:4px; line-height:1.7;">
+          Client Name<br>
+          Client Company Name<br>
+          City, India
+        </div>
+      </div>
+    </div>
+    <div class="inv-body">
+      <div class="inv-row header-row">
+        <div class="col-item">Item / Service</div>
+        <div class="col-desc">Description</div>
+        <div class="col-qty">Qty</div>
+        <div class="col-rate">Rate (₹)</div>
+        <div class="col-total">Amount (₹)</div>
+      </div>
+      <div class="inv-row">
+        <div class="col-item" style="font-weight:600;">Website Development</div>
+        <div class="col-desc">WordPress Business Site, 7 pages, mobile responsive</div>
+        <div class="col-qty">1</div>
+        <div class="col-rate">10,000</div>
+        <div class="col-total" style="color:#0f3460;">10,000</div>
+      </div>
+      <div class="inv-row">
+        <div class="col-item" style="font-weight:600;">Domain Registration</div>
+        <div class="col-desc">yourcompany.com — 1 Year (via Namecheap)</div>
+        <div class="col-qty">1 yr</div>
+        <div class="col-rate">900</div>
+        <div class="col-total" style="color:#0f3460;">900</div>
+      </div>
+      <div class="inv-row">
+        <div class="col-item" style="font-weight:600;">Web Hosting</div>
+        <div class="col-desc">Shared Hosting — 1 Year (Hostinger Starter Plan)</div>
+        <div class="col-qty">1 yr</div>
+        <div class="col-rate">1,188</div>
+        <div class="col-total" style="color:#0f3460;">1,188</div>
+      </div>
+      <div class="inv-row">
+        <div class="col-item" style="font-weight:600;">SSL Certificate</div>
+        <div class="col-desc">HTTPS Security — Let's Encrypt (Included with Hosting)</div>
+        <div class="col-qty">1 yr</div>
+        <div class="col-rate">—</div>
+        <div class="col-total" style="color:#16a34a;">FREE</div>
+      </div>
+      <div class="inv-row">
+        <div class="col-item" style="font-weight:600;">Post-Launch Support</div>
+        <div class="col-desc">1 Month free bug fixes & minor content changes</div>
+        <div class="col-qty">1 mo</div>
+        <div class="col-rate">—</div>
+        <div class="col-total" style="color:#16a34a;">FREE</div>
+      </div>
+    </div>
+    <div class="inv-footer">
+      <div>
+        <div class="inv-total-label">Total Payable (Excl. GST)</div>
+        <div class="inv-note">GST @18% applicable if registered &nbsp;·&nbsp; Annual renewal from Year 2: ₹2,088</div>
+      </div>
+      <div class="inv-total-amt">₹12,088</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ DOMAIN + HOSTING ACTUAL PRICES ══ -->
+<div class="sec">
+  <div class="sec-title">🌐 Domain + Hosting — Where We Buy & What It Costs</div>
+  <div class="sec-sub">These are the actual platforms used — all pricing is passed through transparently</div>
+
+  <div class="incl-grid">
+    <div class="incl-card">
+      <div class="incl-icon">🌐</div>
+      <div class="incl-name">.com Domain</div>
+      <div class="incl-price">₹600–900</div>
+      <div class="incl-note">Namecheap / GoDaddy<br>per year</div>
+    </div>
+    <div class="incl-card" style="border-color:#bfdbfe; background:#f0f8ff;">
+      <div class="incl-icon">🟠</div>
+      <div class="incl-name">Hostinger</div>
+      <div class="incl-price">₹99/mo</div>
+      <div class="incl-note">WordPress hosting<br>₹1,188/year</div>
+    </div>
+    <div class="incl-card" style="border-color:#bbf7d0; background:#f0fdf4;">
+      <div class="incl-icon">⚡</div>
+      <div class="incl-name">Vercel / Netlify</div>
+      <div class="incl-price">₹0</div>
+      <div class="incl-note">Static / React sites<br>Forever free</div>
+    </div>
+    <div class="incl-card" style="border-color:#fde68a; background:#fffbeb;">
+      <div class="incl-icon">🖥️</div>
+      <div class="incl-name">VPS Server</div>
+      <div class="incl-price">₹840/mo</div>
+      <div class="incl-note">DigitalOcean 1GB<br>Full stack apps</div>
+    </div>
+  </div>
+
+  <div class="tbl-wrap" style="margin-top:16px;">
+    <table>
+      <thead>
+        <tr>
+          <th>Platform</th>
+          <th>Type</th>
+          <th>Monthly Cost</th>
+          <th>Yearly Cost</th>
+          <th>Best For</th>
+          <th>What Client Pays</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="td-bold">Vercel / Netlify</td>
+          <td><span class="tag tag-free">Free</span></td>
+          <td class="td-green">₹0</td>
+          <td class="td-green">₹0</td>
+          <td>HTML, React, Vue sites</td>
+          <td class="td-purple">₹0 (passed free)</td>
+        </tr>
+        <tr>
+          <td class="td-bold">Hostinger Starter</td>
+          <td><span class="tag tag-paid">Shared</span></td>
+          <td class="td-price">₹99</td>
+          <td class="td-price">₹1,188</td>
+          <td>WordPress, PHP sites</td>
+          <td class="td-purple">₹1,500–2,000/yr</td>
+        </tr>
+        <tr>
+          <td class="td-bold">Bluehost India</td>
+          <td><span class="tag tag-paid">Shared</span></td>
+          <td class="td-price">₹199</td>
+          <td class="td-price">₹2,388</td>
+          <td>WordPress + WooCommerce</td>
+          <td class="td-purple">₹3,000/yr</td>
+        </tr>
+        <tr>
+          <td class="td-bold">DigitalOcean (1GB)</td>
+          <td><span class="tag tag-inc">VPS</span></td>
+          <td class="td-price">₹840</td>
+          <td class="td-price">₹10,080</td>
+          <td>Node.js, Python apps</td>
+          <td class="td-purple">₹1,000–1,200/mo</td>
+        </tr>
+        <tr>
+          <td class="td-bold">DigitalOcean (2GB)</td>
+          <td><span class="tag tag-inc">VPS</span></td>
+          <td class="td-price">₹1,680</td>
+          <td class="td-price">₹20,160</td>
+          <td>Large apps, e-commerce</td>
+          <td class="td-purple">₹2,000–2,500/mo</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══ AMC ══ -->
+<div class="sec">
+  <div class="sec-title">🔧 Annual Maintenance Contract (AMC) — Optional Add-on</div>
+  <div class="sec-sub">Keep your website running smoothly after launch — security, updates & content changes covered</div>
+
+  <div class="builder">
+    <div class="builder-title">📊 AMC Pricing Breakdown</div>
+    <div class="brow">
+      <div class="brow-left">
+        <div class="brow-name">Domain Renewal Management</div>
+        <div class="brow-note">We handle annual renewal and send timely reminders</div>
+      </div>
+      <div class="brow-right">₹200/yr<small>service charge</small></div>
+    </div>
+    <div class="brow">
+      <div class="brow-left">
+        <div class="brow-name">Hosting Renewal + Monitoring</div>
+        <div class="brow-note">Renew hosting, take backups, monitor uptime</div>
+      </div>
+      <div class="brow-right">₹300/yr<small>service charge</small></div>
+    </div>
+    <div class="brow">
+      <div class="brow-left">
+        <div class="brow-name">Security Updates & Plugin Management</div>
+        <div class="brow-note">Monthly WordPress/plugin updates, malware scan</div>
+      </div>
+      <div class="brow-right">₹500/mo<small>includes hosting cost</small></div>
+    </div>
+    <div class="brow">
+      <div class="brow-left">
+        <div class="brow-name">Content Changes (up to 5/month)</div>
+        <div class="brow-note">Text edits, image updates, minor page changes</div>
+      </div>
+      <div class="brow-right">₹1,000/mo<small>add-on</small></div>
+    </div>
+    <div class="brow">
+      <div class="brow-left">
+        <div class="brow-name">Monthly Performance Report</div>
+        <div class="brow-note">Traffic, page speed, basic SEO summary</div>
+      </div>
+      <div class="brow-right">₹500/mo<small>premium add-on</small></div>
+    </div>
+    <div class="grand-total">
+      <div>
+        <div class="gt-label">Recommended AMC Package</div>
+        <div class="gt-note">Hosting Management + Security + 5 Content Changes/month</div>
+      </div>
+      <div style="text-align:right;">
+        <div class="gt-amt">₹2,000</div>
+        <div class="gt-yr">/month</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="alert alert-green" style="margin-top:16px;">
+    <span>💡</span>
+    <div><strong>Why AMC matters:</strong> The AMC ensures your website stays updated, secure, and running — without you having to worry about technical maintenance. It covers all recurring hosting tasks and minor changes on a predictable monthly cost.</div>
+  </div>
+</div>
+
+<!-- ══ FREELANCER TIPS ══ -->
+<div class="sec">
+  <div class="sec-title">💡 Best Practices for Every Project</div>
+  <div class="sec-sub">How Radiant operates — standards we follow on every engagement</div>
+
+  <div class="tip-grid">
+    <div class="tip-card green">
+      <div class="tip-head">✅ What We Always Do</div>
+      <ul class="tip-list">
+        <li>Register domain in the client's name</li>
+        <li>Show hosting cost as a separate line item</li>
+        <li>Take 50% advance before starting work</li>
+        <li>Provide a written scope agreement</li>
+        <li>Enable auto-renewal on domain</li>
+        <li>Give realistic, honest delivery timelines</li>
+      </ul>
+    </div>
+    <div class="tip-card orange">
+      <div class="tip-head">❌ What We Never Do</div>
+      <ul class="tip-list">
+        <li>Start work without any advance payment</li>
+        <li>Hide hosting costs inside the dev fee</li>
+        <li>Hold domain access hostage</li>
+        <li>Take large projects without a contract</li>
+        <li>Miss domain renewal dates</li>
+        <li>Add extra features without approval</li>
+      </ul>
+    </div>
+    <div class="tip-card blue">
+      <div class="tip-head">💰 How Pricing Works</div>
+      <ul class="tip-list">
+        <li>Hosting cost + 20% markup = what client pays</li>
+        <li>Developer fee is always one-time only</li>
+        <li>Domain is billed at actual cost, no markup</li>
+        <li>GST @18% added if client is GST-registered</li>
+        <li>Discounts available for long-term contracts</li>
+        <li>Referral discounts offered to existing clients</li>
+      </ul>
+    </div>
+    <div class="tip-card purple">
+      <div class="tip-head">🚀 What You Get</div>
+      <ul class="tip-list">
+        <li>Mobile-responsive design on all devices</li>
+        <li>Fast-loading, SEO-friendly structure</li>
+        <li>Complete source code & credentials handover</li>
+        <li>Step-by-step training on how to update content</li>
+        <li>Ongoing AMC support available post-launch</li>
+        <li>Professional invoice for all transactions</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<div class="footer">
+  <div class="footer-brand">
+    <div class="footer-logo">✦</div>
+    <div>
+      <strong>Radiant</strong> — Web Development Studio<br>
+      <span>All prices in Indian Rupees (₹) · Quotation valid for 30 days · Prices may vary by project scope</span>
+    </div>
+  </div>
+  <div style="text-align:right; line-height:1.8;">
+    <strong>Contact:</strong> your@email.com<br>
+    <span>+91 — — — — — — — —</span>
+  </div>
+</div>
+
+</div>
+</body>
+</html>
