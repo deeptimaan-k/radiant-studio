@@ -92,8 +92,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 
 /* ── PACKAGES ── */
 .pkg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
-.pkg{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);overflow:hidden;position:relative;transition:box-shadow .3s,border-color .3s;transform-style:preserve-3d;will-change:transform;}
-.pkg:hover{box-shadow:var(--glow),0 24px 60px rgba(0,0,0,.5);}
+.pkg{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);overflow:hidden;position:relative;transition:transform .35s ease,box-shadow .35s ease,border-color .3s;}
+.pkg:hover{transform:translateY(-8px);box-shadow:var(--glow),0 24px 60px rgba(0,0,0,.5);}
 .pkg.pop{border-color:rgba(139,92,246,.45);box-shadow:0 0 20px rgba(139,92,246,.15);}
 .pop-badge{position:absolute;top:0;left:50%;transform:translateX(-50%);background:var(--grad);color:#fff;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;padding:4px 16px;border-radius:0 0 10px 10px;box-shadow:0 4px 15px rgba(139,92,246,.4);}
 .pkg-glow{position:absolute;width:180px;height:180px;border-radius:50%;background:var(--primary);filter:blur(70px);opacity:0;top:-60px;left:50%;transform:translateX(-50%);pointer-events:none;transition:opacity .3s;}
@@ -223,7 +223,7 @@ footer{background:linear-gradient(135deg,rgba(139,92,246,.1),rgba(99,102,241,.05
 @media(max-width:768px){
   .blob{display:none;}
   .rv{opacity:1;transform:none;transition:none;}
-  .pkg{transform:none!important;transition:none!important;}
+  .pkg:hover{transform:none;}
   .hero{min-height:unset;padding:40px 20px 36px;}
   .logo-wrap{margin-bottom:24px;}
 }
@@ -604,14 +604,6 @@ footer{background:linear-gradient(135deg,rgba(139,92,246,.1),rgba(99,102,241,.05
 })();
 
 
-/* 3D TILT — desktop only */
-if(window.innerWidth>768) document.querySelectorAll('.pkg').forEach(card=>{
-  card.addEventListener('mousemove',e=>{
-    const r=card.getBoundingClientRect(),x=e.clientX-r.left-r.width/2,y=e.clientY-r.top-r.height/2;
-    card.style.transform=`perspective(900px) rotateX(${-y/22}deg) rotateY(${x/22}deg) translateZ(12px)`;
-  });
-  card.addEventListener('mouseleave',()=>{card.style.transform='perspective(900px) rotateX(0) rotateY(0) translateZ(0)';});
-});
 
 /* SCROLL REVEAL — desktop only */
 if(window.innerWidth>768){
